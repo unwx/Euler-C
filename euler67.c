@@ -7,15 +7,8 @@
 #include "euler67.h"
 #include "random.h"
 #include "timer.h"
+#include "array_utils.h"
 
-static void free_pyramid(unsigned int **pyramid, const unsigned int depth) {
-    unsigned int i;
-    for (i = 0; i < depth; i++) {
-        free(pyramid[i]);
-    }
-
-    free(pyramid);
-}
 
 static unsigned int **generate_pyramid(const unsigned int depth, const unsigned int bound) {
     unsigned int **pyramid = malloc(sizeof(unsigned int *) * depth);
@@ -71,5 +64,5 @@ void execute_euler67(const unsigned int depth, const unsigned int bound) {
     execution_time = timer_stop();
 
     printf("Result: %d, execution time: %f\n", result, execution_time);
-    free_pyramid(pyramid, depth);
+    free_array_2d(pyramid, depth);
 }

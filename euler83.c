@@ -7,26 +7,7 @@
 #include "euler83.h"
 #include "random.h"
 #include "timer.h"
-
-static void free_matrix_v1(unsigned int **matrix, const unsigned int size) {
-    unsigned int i;
-
-    for (i = 0; i < size; i++) {
-        free(matrix[i]);
-    }
-
-    free(matrix);
-}
-
-static void free_matrix_v2(unsigned int **matrix, const unsigned int size) {
-    unsigned int i;
-
-    for (i = 0; i < size; i++) {
-        free(matrix[i]);
-    }
-
-    free(matrix);
-}
+#include "array_utils.h"
 
 static unsigned int **generate_matrix_v1(const unsigned int size, const unsigned int bound) {
     unsigned int **matrix = malloc(sizeof(unsigned int *) * size);
@@ -186,7 +167,7 @@ static void test_v1() {
 }
 
 static void test_v2() {
-    unsigned int *matrix[] = {
+    unsigned int *matrix[] = { // diagonals of matrix v1
             (unsigned int[]) {1},
             (unsigned int[]) {1, 9},
             (unsigned int[]) {1, 9, 9},
@@ -228,7 +209,7 @@ static void execute_v1(const unsigned int size, const unsigned int bound) {
 
     printf("Result: %d, execution time: %f\n\n\n", result, execution_time);
     test_v1();
-    free_matrix_v1(matrix, size);
+    free_array_2d(matrix, size);
 }
 
 static void execute_v2(const unsigned int size, const unsigned int bound) {
@@ -246,7 +227,7 @@ static void execute_v2(const unsigned int size, const unsigned int bound) {
 
     printf("Result: %d, execution time: %f\n\n\n", result, execution_time);
     test_v2();
-    free_matrix_v2(matrix, matrix_updated_size);
+    free_array_2d(matrix, matrix_updated_size);
 }
 
 void execute_euler83(const unsigned int size, const unsigned int bound) {
